@@ -1,5 +1,5 @@
 $font-size: 18pt
-$background: black
+$background: #1e1e1e
 
 .terminal
   width: 100%
@@ -7,7 +7,8 @@ $background: black
   background: $background
   padding: 1rem
   font-size: $font-size
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif
+  // font-family: Inter, Avenir, Helvetica, Arial, sans-serif
+  font-family: monospace
   color: white
   
   #prompt
@@ -15,7 +16,8 @@ $background: black
     flex-direction: row
     #cmd
       margin-left: .5rem
-      font-size: $font-size
+      font-family: inherit
+      font-size: inherit
       background: $background
       width: 100%
       border: none
@@ -23,9 +25,3 @@ $background: black
 
       &:focus
         outline: none
-
-.purple
-  color: #c678dd
-
-.blue
-  color: #569cd6
