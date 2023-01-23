@@ -5,6 +5,7 @@ import CommandLine from "./CommandLine.svelte";
 <div><div class="input"><CommandLine /> whoami</div>
 <p>I am Paul Frische and I am interested in everything related to linux or software development
 You can find me on <a href="https://github.com/paulfrische">Github</a></p>
+
 </div>
 
 <style lang="sass">

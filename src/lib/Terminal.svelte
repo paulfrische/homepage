@@ -4,6 +4,7 @@
     import GenericOutputMessage from "./GenericOutputMessage.svelte";
     import CommandLine from "./CommandLine.svelte";
     import About from "./About.svelte";
+    import Software from "./Software.svelte";
 
     let input: HTMLInputElement;
     let output: HTMLParagraphElement;
@@ -11,9 +12,10 @@
     let outputs: Array<[string, string | SvelteComponent]> = [];
 
     const help = `Type one of the following commands and press <Enter>:
-         help    - show this message
-         clear   - clears the screen
-         whoami  - shows information about me
+         help       - show this message
+         clear      - clears the screen
+         whoami     - shows information about me
+         software   - show software I use
          
          `;
 
@@ -35,6 +37,8 @@
             case "whoami":
                 outputs.push(["whoami", ""]);
                 break;
+            case "whoami":
+                outputs.push(["software", ""])
             default:
                 outputs.push([
                     command,
@@ -60,14 +64,15 @@
         {#each outputs as out}
             {#if out[0] == "whoami"}
                 <About />
-            {/if}
-            {#if out[0] != "whoami"}
+            {:else if out[0] == "software"}
+                <Software />
+            {:else}
                 <GenericOutputMessage message={out[1]} command={out[0]} />
             {/if}
         {/each}
     </div>
     <form id="prompt" on:submit={enterCommandListener}>
         <CommandLine />
-        <input type="text" id="cmd" />
+        <input type="text" id="cmd" autocomplete="off"/>
     </form>
 </div>
