@@ -1,5 +1,7 @@
 <script lang="ts">
-export let message: string;
+    import type { SvelteComponent } from "svelte";
+
+export let message: string | SvelteComponent;
 export let command: string;
 
 import CommandLine from "./CommandLine.svelte";

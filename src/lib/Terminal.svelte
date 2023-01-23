@@ -1,22 +1,27 @@
 <script lang="ts">
     import "./terminal.sass";
-    import { onMount } from "svelte";
-    import OutputMessage from "./OutputMessage.svelte";
+    import { onMount, SvelteComponent } from "svelte";
+    import GenericOutputMessage from "./GenericOutputMessage.svelte";
     import CommandLine from "./CommandLine.svelte";
+    import About from "./About.svelte";
 
     let input: HTMLInputElement;
     let output: HTMLParagraphElement;
 
-    let outputs: Array<[string, string]> = [];
+    let outputs: Array<[string, string | SvelteComponent]> = [];
 
-    const help =
-        "Type one of the following commands and press <Enter>:\n help    - show this message\n clear   - clears the screen\n whoami  - shows information about me\n";
+    const help = `Type one of the following commands and press <Enter>:
+         help    - show this message
+         clear   - clears the screen
+         whoami  - shows information about me
+         
+         `;
 
     onMount(async () => {
         input = document.getElementById("cmd") as HTMLInputElement;
-        input.focus()
+        input.focus();
         output = document.getElementById("output") as HTMLParagraphElement;
-        output.innerText = help
+        output.innerText = help;
     });
 
     function handleCommand(command: string) {
@@ -28,7 +33,7 @@
                 outputs.push(["help", help]);
                 break;
             case "whoami":
-                outputs.push(["whoami", "I am paul!"]);
+                outputs.push(["whoami", ""]);
                 break;
             default:
                 outputs.push([
@@ -53,7 +58,12 @@
 <div class="terminal">
     <div id="output">
         {#each outputs as out}
-            <OutputMessage message={out[1]} command={out[0]} />
+            {#if out[0] == "whoami"}
+                <About />
+            {/if}
+            {#if out[0] != "whoami"}
+                <GenericOutputMessage message={out[1]} command={out[0]} />
+            {/if}
         {/each}
     </div>
     <form id="prompt" on:submit={enterCommandListener}>
